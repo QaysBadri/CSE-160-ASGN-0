@@ -62,12 +62,17 @@ function handleDrawOperationEvent() {
     let v3 = v1.add(v2);
     drawVector(v3, "green");
   } else if (op == "sub") {
-    let v3 = v1.subtract(v2);
+    let v3 = v1.sub(v2);
     drawVector(v3, "green");
-  } else if (op == "mul" || op == "div") {
+  } else if (op == "mul") {
     let v3 = v1.mul(scalar);
     drawVector(v3, "green");
     let v4 = v2.mul(scalar);
+    drawVector(v4, "green");
+  } else if (op == "div") {
+    let v3 = v1.div(scalar);
+    drawVector(v3, "green");
+    let v4 = v2.div(scalar);
     drawVector(v4, "green");
   } else if (op == "magnitude") {
     console.log(v1.magnitude());
@@ -75,15 +80,21 @@ function handleDrawOperationEvent() {
   } else if (op == "normalize") {
     drawVector(v1.normalize(), "green");
     drawVector(v2.normalize(), "green");
+  } else if (op == "angle-between") {
+    angleBetween(v1, v2);
+  } else if (op == "Area") {
+    areaTriangle(v1, v2);
   }
 }
 
 function angleBetween(v1, v2) {
-  let dotProduct = v1.dot(v2);
+  let dotProduct = Vector3.dot(v1, v2);
   let magV1 = v1.magnitude();
   let magV2 = v2.magnitude();
-  console.log(Math.acos(dotProduct / (magV1 * magV2)));
+  console.log(
+    "Angle: " + Math.acos(dotProduct / (magV1 * magV2)) * (180 / Math.PI)
+  );
 }
 function areaTriangle(v1, v2) {
-  console.log(v1.cross(v2).magnitude() / 2);
+  console.log("Area of the triangle: " + Vector3.cross(v1, v2).magnitude() / 2);
 }
